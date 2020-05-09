@@ -1,5 +1,8 @@
 <template>
   <div class="dashboard-container">
+    <div>
+      <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat" />
+    </div>
     <div class="dashboard-editor-container">
       <panel-group />
       <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:0px;">
@@ -25,6 +28,11 @@ export default {
   components: {
     PanelGroup,
     LineChart
+  },
+  methods: {
+    goChat() {
+      this.$router.push('/chat')
+    }
   }
 }
 </script>

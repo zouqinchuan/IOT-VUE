@@ -16,6 +16,12 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path: '/chat',
+    name: '在线聊天',
+    component: () => import('@/views/chat/FriendChat'),
+    hidden: true
+  },
+  {
     path: '/401',
     component: () => import('@/views/features/401'),
     hidden: true
