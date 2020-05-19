@@ -5,7 +5,7 @@
         <span>{{ entry.date | time }}</span>
       </p>
       <div class="main" :class="{self:entry.self}">
-        <img class="avatar" :src="entry.self ? user.userface : currentSession.userface" alt="">
+        <img class="avatar" :src="entry.self ? user.face : currentSession.face" alt="">
         <p class="text">{{ entry.content }}</p>
       </div>
     </ul>

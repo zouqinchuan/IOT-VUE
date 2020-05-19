@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '../layout/index'
+import FriendChat from '../views/chat/FriendChat.vue'
 
 Vue.use(Router)
 
@@ -18,7 +19,7 @@ export const constantRouterMap = [
   {
     path: '/chat',
     name: '在线聊天',
-    component: () => import('@/views/chat/FriendChat'),
+    component: FriendChat,
     hidden: true
   },
   {

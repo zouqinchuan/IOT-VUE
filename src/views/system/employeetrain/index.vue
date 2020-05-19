@@ -86,7 +86,7 @@ export default {
       rules: {
       },
       queryTypeOptions: [
-        { key: 'trainDate', display_name: '培训日期' }
+        { key: 'username', display_name: '用户名' }
       ]
     }
   },
