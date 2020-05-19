@@ -15,10 +15,7 @@
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
-          <el-form-item label="id" prop="id">
-            <el-input v-model="form.id" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="用户名" prop="username">
+          <el-form-item label="工号" prop="username">
             <el-input v-model="form.username" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="基本工资">
@@ -48,6 +45,9 @@
           <el-form-item label="应发工资">
             <el-input v-model="form.all" style="width: 370px;" />
           </el-form-item>
+          <el-form-item label="姓名">
+            <el-input v-model="form.name" style="width: 370px;" />
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
@@ -57,8 +57,7 @@
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
-        <el-table-column v-if="columns.visible('id')" prop="id" label="id" />
-        <el-table-column v-if="columns.visible('username')" prop="username" label="用户名" />
+        <el-table-column v-if="columns.visible('username')" prop="username" label="工号" />
         <el-table-column v-if="columns.visible('basic')" prop="basic" label="基本工资" />
         <el-table-column v-if="columns.visible('bonus')" prop="bonus" label="奖金" />
         <el-table-column v-if="columns.visible('lunch')" prop="lunch" label="午餐补助" />
@@ -72,6 +71,7 @@
         <el-table-column v-if="columns.visible('medical')" prop="medical" label="医疗保险" />
         <el-table-column v-if="columns.visible('accumulation')" prop="accumulation" label="公积金" />
         <el-table-column v-if="columns.visible('all')" prop="all" label="应发工资" />
+        <el-table-column v-if="columns.visible('name')" prop="name" label="姓名" />
         <el-table-column v-permission="['admin','salary:edit','salary:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
             <udOperation
@@ -88,61 +88,57 @@
 </template>
 
 <script>
-  import crudSalary from '@/api/salary'
-  import CRUD, { presenter, header, form, crud } from '@crud/crud'
-  import rrOperation from '@crud/RR.operation'
-  import crudOperation from '@crud/CRUD.operation'
-  import udOperation from '@crud/UD.operation'
-  import pagination from '@crud/Pagination'
+import crudSalary from '@/api/salary'
+import CRUD, { presenter, header, form, crud } from '@crud/crud'
+import rrOperation from '@crud/RR.operation'
+import crudOperation from '@crud/CRUD.operation'
+import udOperation from '@crud/UD.operation'
+import pagination from '@crud/Pagination'
 
-  // crud交由presenter持有
-  const defaultCrud = CRUD({ title: 'salary', url: 'api/salary', sort: 'id,desc', crudMethod: { ...crudSalary }})
-  const defaultForm = { id: null, username: null, basic: null, bonus: null, lunch: null, traffic: null, pension: null, createDate: null, medical: null, accumulation: null, all: null }
-  export default {
-    name: 'Salary',
-    components: { pagination, crudOperation, rrOperation, udOperation },
-    mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
-    data() {
-      return {
-        permission: {
-          add: ['admin', 'salary:add'],
-          edit: ['admin', 'salary:edit'],
-          del: ['admin', 'salary:del']
-        },
-        rules: {
-          id: [
-            { required: true, message: '不能为空', trigger: 'blur' }
-          ],
-          username: [
-            { required: true, message: '用户名不能为空', trigger: 'blur' }
-          ]
-        },
-        queryTypeOptions: [
-          { key: 'id', display_name: 'id' },
-          { key: 'username', display_name: '用户名' },
-          { key: 'basic', display_name: '基本工资' },
-          { key: 'bonus', display_name: '奖金' },
-          { key: 'lunch', display_name: '午餐补助' },
-          { key: 'traffic', display_name: '交通补助' },
-          { key: 'pension', display_name: '养老金' },
-          { key: 'createDate', display_name: '启用时间' },
-          { key: 'medical', display_name: '医疗保险' },
-          { key: 'accumulation', display_name: '公积金' },
-          { key: 'all', display_name: '应发工资' }
+// crud交由presenter持有
+const defaultCrud = CRUD({ title: 'salary', url: 'api/salary', sort: 'id,desc', crudMethod: { ...crudSalary }})
+const defaultForm = { id: null, username: null, basic: null, bonus: null, lunch: null, traffic: null, pension: null, createDate: null, medical: null, accumulation: null, all: null, name: null }
+export default {
+  name: 'Salary',
+  components: { pagination, crudOperation, rrOperation, udOperation },
+  mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
+  data() {
+    return {
+      permission: {
+        add: ['admin', 'salary:add'],
+        edit: ['admin', 'salary:edit'],
+        del: ['admin', 'salary:del']
+      },
+      rules: {
+        username: [
+          { required: true, message: '工号不能为空', trigger: 'blur' }
         ]
+      },
+      queryTypeOptions: [
+        { key: 'username', display_name: '工号' },
+        { key: 'basic', display_name: '基本工资' },
+        { key: 'bonus', display_name: '奖金' },
+        { key: 'lunch', display_name: '午餐补助' },
+        { key: 'traffic', display_name: '交通补助' },
+        { key: 'pension', display_name: '养老金' },
+        { key: 'medical', display_name: '医疗保险' },
+        { key: 'accumulation', display_name: '公积金' },
+        { key: 'all', display_name: '应发工资' },
+        { key: 'name', display_name: '姓名' }
+      ]
+    }
+  },
+  methods: {
+    // 获取数据前设置好接口地址
+    [CRUD.HOOK.beforeRefresh]() {
+      const query = this.query
+      if (query.type && query.value) {
+        this.crud.params[query.type] = query.value
       }
-    },
-    methods: {
-      // 获取数据前设置好接口地址
-      [CRUD.HOOK.beforeRefresh]() {
-        const query = this.query
-        if (query.type && query.value) {
-          this.crud.params[query.type] = query.value
-        }
-        return true
-      }
+      return true
     }
   }
+}
 </script>
 
 <style scoped>
