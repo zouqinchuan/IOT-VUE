@@ -42,7 +42,7 @@ module.exports = {
   /**
    * 底部文字，支持html语法
    */
-  footerTxt: '© 毕业课设 2020 Zhou Qinchuan <a href="http://www.baidu.com" target="_blank">my gethub</a>',
+  footerTxt: '© 毕业课设 2020 Zhou Qinchuan <a href="https://github.com/zouqinchuan" target="_blank">my gethub</a>',
   /**
    * 备案号
    */
