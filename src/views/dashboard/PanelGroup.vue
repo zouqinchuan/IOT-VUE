@@ -1,5 +1,16 @@
 <template>
   <el-row :gutter="40" class="panel-group">
+    <div class="lunbo-box">
+      <el-carousel indicator-position="outside">
+        <el-carousel-item
+          class="lunbo-box-item"
+          v-for="(item,index) in abc_img"
+          :key="index"
+        >
+          <img :src="item.src" class="lunbotu" alt="轮播图">
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel">
         <div class="card-panel-icon-wrapper icon-people">
@@ -56,6 +67,10 @@ export default {
   },
   data() {
     return {
+      abc_img: [
+        { src: require("../../assets/images/430.jpg") },
+        { src: require("../../assets/images/banner0514.jpg") }
+      ],
       count: { newIp: 0, newVisits: 0, recentIp: 0, recentVisits: 0 }
     }
   },
