@@ -329,13 +329,6 @@ function CRUD(options) {
      * 获取查询参数
      */
     getQueryParams: function() {
-      // 清除参数无值的情况
-      Object.keys(crud.query).length !== 0 && Object.keys(crud.query).forEach(item => {
-        if (crud.query[item] === null || crud.query[item] === '') crud.query[item] = undefined
-      })
-      Object.keys(crud.params).length !== 0 && Object.keys(crud.params).forEach(item => {
-        if (crud.params[item] === null || crud.params[item] === '') crud.params[item] = undefined
-      })
       return {
         page: crud.page.page - 1,
         size: crud.page.size,
@@ -385,7 +378,7 @@ function CRUD(options) {
      * @param {Array} data 数据
      */
     resetForm(data) {
-      const form = data || (typeof crud.defaultForm === 'object' ? JSON.parse(JSON.stringify(crud.defaultForm)) : crud.defaultForm.apply(crud.findVM('form')))
+      const form = data || (typeof crud.defaultForm === 'object' ? JSON.parse(JSON.stringify(crud.defaultForm)) : crud.defaultForm())
       const crudFrom = crud.form
       for (const key in form) {
         if (crudFrom.hasOwnProperty(key)) {
@@ -402,7 +395,7 @@ function CRUD(options) {
       const dataStatus = {}
       function resetStatus(datas) {
         datas.forEach(e => {
-          dataStatus[crud.getDataId(e)] = {
+          dataStatus[e.id] = {
             delete: 0,
             edit: 0
           }
