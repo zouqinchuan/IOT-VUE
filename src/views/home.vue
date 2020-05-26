@@ -28,12 +28,12 @@ export default {
   components: {
     PanelGroup,
     LineChart
-  },
-  methods: {
-    goChat() {
-      this.$router.push('/chat')
-    }
   }
+  // methods: {
+  //   goChat() {
+  //     this.$router.push('/chat')
+  //   }
+  // }
 }
 </script>
 
