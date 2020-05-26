@@ -107,7 +107,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import updatePass from './center/updatePass'
-import updateEmail from './center/updateEmail'
 import { getToken } from '@/utils/auth'
 import store from '@/store'
 import { isvalidPhone } from '@/utils/validate'
@@ -117,7 +116,7 @@ import { editUser } from '@/api/system/user'
 import Avatar from '@/assets/images/avatar.png'
 export default {
   name: 'Center',
-  components: { updatePass, updateEmail },
+  components: { updatePass },
   mixins: [crud],
   data() {
     // 自定义验证
