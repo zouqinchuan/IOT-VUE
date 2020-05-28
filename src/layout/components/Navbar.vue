@@ -7,7 +7,10 @@
     <div class="right-menu">
       <template v-if="device!=='mobile'">
         <search id="header-search" class="right-menu-item" />
-
+        <!-- websocket聊天室 -->
+        <div class="right-menu-item" style="vertical-align: top;font-size: 20px;">
+          <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat" />
+        </div>
         <el-tooltip content="全屏缩放" effect="dark" placement="bottom">
           <screenfull id="screenfull" class="right-menu-item hover-effect" />
         </el-tooltip>
@@ -88,6 +91,9 @@ export default {
     }
   },
   methods: {
+    goChat() {
+      this.$router.push('/chat')
+    },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },

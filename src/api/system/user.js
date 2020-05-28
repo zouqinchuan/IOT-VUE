@@ -57,5 +57,13 @@ export function updateEmail(form) {
   })
 }
 
-export default { add, edit, del }
+export function getSysUserList(query) {
+  return request({
+    url: '/api/system/user/list',
+    method: 'post',
+    data: query
+  })
+}
+
+export default { add, edit, del, getSysUserList }
 

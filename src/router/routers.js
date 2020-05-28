@@ -15,12 +15,6 @@ export const constantRouterMap = [
     component: () => import('@/views/features/404'),
     hidden: true
   },
-  // {
-  //   path: '/chat',
-  //   name: '在线聊天',
-  //   component: FriendChat,
-  //   hidden: true
-  // },
   {
     path: '/401',
     component: () => import('@/views/features/401'),
@@ -49,6 +43,12 @@ export const constantRouterMap = [
         meta: { title: '首页', icon: 'index', affix: true, noCache: true }
       }
     ]
+  },
+  {
+    path: '/chat',
+    component: () => import('@/views/system/chat'),
+    name: '聊天室',
+    meta: { title: '聊天室', icon: 'my-sysmenu', noCache: true, resources: 'chat' }
   },
   {
     path: '/user',
