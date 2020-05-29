@@ -46,53 +46,50 @@ export default {
     methods: {
       // 发送聊天信息
       sendText() {
-        let _this = this;
-        _this.$refs["sendMsg"].focus();
-        if (!_this.contentText) {
+        this.$refs["sendMsg"].focus();
+        if (!this.contentText) {
           return;
         }
         let params = {
-          userId: _this.userId,
-          username: _this.username,
-          avatar: _this.avatar,
-          msg: _this.contentText,
-          count: _this.count
+          userId: this.userId,
+          username: this.username,
+          avatar: this.avatar,
+          msg: this.contentText,
+          count: this.count
         };
-        _this.ws.send(JSON.stringify(params)); //调用WebSocket send()发送信息的方法
-        _this.contentText = "";
+        this.ws.send(JSON.stringify(params)); //调用WebSocket send()发送信息的方法
+        this.contentText = "";
         setTimeout(() => {
-          _this.scrollBottm();
+          this.scrollBottm();
         }, 500);
       },
       // 进入页面创建websocket连接
       initWebSocket() {
-        let _this = this;
         // 判断页面有没有存在websocket连接
         if (window.WebSocket) {
           const serverHot =  window.location.hostname;
           // let sip = '房间号'
           // 填写本地IP地址 此处的 :8000端口号 要与后端配置的一致！
           let sip = '10086'
-          // 填写本地IP地址 此处的 :9101端口号 要与后端配置的一致！
+          // 填写本地IP地址 此处的 :8000端口号 要与后端配置的一致！
           const url = process.env.VUE_APP_WS_API + '/groupChat/' + sip + '/' + this.userId;
           // this.ws = new WebSocket(url);
-          let ws = new WebSocket(url);
-          _this.ws = ws;
-          ws.onopen = function(e) {
+          this.ws = new WebSocket(url);
+          this.ws.onopen = function(e) {
             console.log("服务器连接成功: " + url);
           };
-          ws.onclose = function(e) {
+          this.ws.onclose = function(e) {
             console.log("服务器连接关闭: " + url);
           };
-          ws.onerror = function() {
+          this.ws.onerror = function() {
             console.log("服务器连接出错: " + url);
           };
-          ws.onmessage = function(e) {
+          this.ws.onmessage = function(e) {
             //接收服务器返回的数据
             let resData = JSON.parse(e.data)
-            _this.count = resData.count;
-            _this.list = [
-              ..._this.list,
+            this.count = resData.count;
+            this.list = [
+              ...this.list,
               { userId: resData.userId, username: resData.username, avatar: resData.avatar, content: resData.msg }
         ]
         }
