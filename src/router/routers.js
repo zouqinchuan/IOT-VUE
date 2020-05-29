@@ -48,7 +48,7 @@ export const constantRouterMap = [
     path: '/chat',
     component: () => import('@/views/system/chat'),
     name: '聊天室',
-    meta: { title: '聊天室', icon: 'my-sysmenu', noCache: true, resources: 'chat' }
+    meta: { title: '聊天室', icon: 'Steve-Jobs', noCache: true, resources: 'chat' }
   },
   {
     path: '/user',
