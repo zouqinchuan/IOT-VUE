@@ -52,6 +52,7 @@
         </div>
       </el-dialog>
       <!--表格渲染-->
+      <el-table-column align="center" style=" margin-bottom: 20px">专任教师培训进修、交流情况（学年）</el-table-column>
       <el-table ref="table" v-loading="crud.loading" border :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
         <el-table-column v-if="columns.visible('eid')" prop="eid" label="员工编号" />
@@ -100,7 +101,7 @@ import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: 'employeetrain', url: 'api/employeetrain', sort: 'id,desc', crudMethod: { ...crudEmployeetrain }})
+const defaultCrud = CRUD({ title: '培训进修', url: 'api/employeetrain', sort: 'id,desc', crudMethod: { ...crudEmployeetrain }})
 const defaultForm = { id: null, eid: null, remark: null, trainContent: null, username: null, name: null, place: null, unit: null, startTime: null, finishTime: null, type: null }
 export default {
   name: 'Employeetrain',

@@ -96,7 +96,7 @@ import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: 'salary', url: 'api/salary', sort: 'id,desc', crudMethod: { ...crudSalary }})
+const defaultCrud = CRUD({ title: '薪酬', url: 'api/salary', sort: 'id,desc', crudMethod: { ...crudSalary }})
 const defaultForm = { id: null, username: null, basic: null, bonus: null, lunch: null, traffic: null, pension: null, createDate: null, medical: null, accumulation: null, all: null, name: null }
 export default {
   name: 'Salary',

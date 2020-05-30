@@ -43,6 +43,7 @@
         </div>
       </el-dialog>
       <!--表格渲染-->
+      <el-table-column align="center" style=" margin-bottom: 20px">教师担任教学任务情况(自然年)</el-table-column>
       <el-table ref="table" v-loading="crud.loading" border :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
         <el-table-column v-if="columns.visible('year')" prop="year" label="学年" />
@@ -76,7 +77,7 @@ import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
 // crud交由presenter持有
-const defaultCrud = CRUD({ title: 'teaching', url: 'api/teaching', sort: 'id,desc', crudMethod: { ...crudTeaching }})
+const defaultCrud = CRUD({ title: '教学任务', url: 'api/teaching', sort: 'id,desc', crudMethod: { ...crudTeaching }})
 const defaultForm = { id: null, year: null, username: null, name: null, course: null, period: null, grade: null, people: null }
 export default {
   name: 'Teaching',

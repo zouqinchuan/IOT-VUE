@@ -50,6 +50,10 @@ export const constantRouterMap = [
     name: '聊天室',
     meta: { title: '聊天室', icon: 'Steve-Jobs', noCache: true, resources: 'chat' }
   },
+  // {
+  //   path: '/localStorage',
+  //   component: () => import('@/views/tools/storage/qiniu/index'),
+  // },
   {
     path: '/user',
     component: Layout,
