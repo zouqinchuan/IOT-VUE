@@ -44,7 +44,7 @@
       </el-dialog>
       <!--表格渲染-->
       <el-table-column align="center" style=" margin-bottom: 20px">教师担任教学任务情况(自然年)</el-table-column>
-      <el-table ref="table" v-loading="crud.loading" border :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
+      <el-table ref="table" v-loading="crud.loading" :summary-method="getSummaries" show-summary border :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
         <el-table-column v-if="columns.visible('year')" prop="year" label="学年" />
         <el-table-column v-if="columns.visible('username')" prop="username" label="工号" />
@@ -105,6 +105,52 @@ export default {
     }
   },
   methods: {
+    getSummaries(param) {
+      const {columns, data} = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '总计';
+          return;
+        }
+        const values = data.map(item => Number(item[column.property]));
+        switch(column.property) {
+          case "period":
+            if (!values.every(value => isNaN(value))) {
+              sums[index] = values.reduce((prev, curr) => {
+                const value = Number(curr);
+                if (!isNaN(value)) {
+                  return prev + curr;
+                } else {
+                  return prev;
+                }
+              }, 0);
+              sums[index] += ' 学时';
+            } else {
+              sums[index] = 'N/A';
+            }
+            break;
+          case "people":
+            if (!values.every(value => isNaN(value))) {
+              sums[index] = values.reduce((prev, curr) => {
+                const value = Number(curr);
+                if (!isNaN(value)) {
+                  return prev + curr;
+                } else {
+                  return prev;
+                }
+              }, 0);
+              sums[index] += ' 人';
+            } else {
+              sums[index] = 'N/A';
+            }
+            break;
+          default:
+            break;
+        }
+      });
+      return sums;
+    },
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
       const query = this.query
