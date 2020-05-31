@@ -103,7 +103,7 @@
         </el-table-column>
         <el-table-column v-permission="['admin','paper:edit','paper:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
-            <el-button type="success" @click.native="openwj">文件管理</el-button>
+            <el-button type="success" @click.native="openwj" style="margin-bottom:5px;">文件管理</el-button>
             <udOperation
               :data="scope.row"
               :permission="permission"
