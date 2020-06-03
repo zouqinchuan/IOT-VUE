@@ -19,31 +19,31 @@
             <el-input v-model="form.username" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="基本工资">
-            <el-input v-model="form.basic" style="width: 370px;" />
+            <el-input v-model="form.jbbasic" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="奖金">
-            <el-input v-model="form.bonus" style="width: 370px;" />
+            <el-input v-model="form.jjbonus" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="午餐补助">
-            <el-input v-model="form.lunch" style="width: 370px;" />
+            <el-input v-model="form.bzlunch" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="交通补助">
-            <el-input v-model="form.traffic" style="width: 370px;" />
+            <el-input v-model="form.bztraffic" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="养老金">
-            <el-input v-model="form.pension" style="width: 370px;" />
+            <el-input v-model="form.ylpension" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="启用时间">
-            <el-date-picker v-model="form.createDate" type="datetime" style="width: 370px;" />
+            <el-date-picker v-model="form.qdcreateDate" type="datetime" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="医疗保险">
-            <el-input v-model="form.medical" style="width: 370px;" />
+            <el-input v-model="form.ylmedical" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="公积金">
-            <el-input v-model="form.accumulation" style="width: 370px;" />
+            <el-input v-model="form.gjjaccumulation" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="应发工资">
-            <el-input v-model="form.all" style="width: 370px;" />
+            <el-input v-model="form.yfall" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="姓名">
             <el-input v-model="form.name" style="width: 370px;" />
@@ -58,19 +58,19 @@
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
         <el-table-column v-if="columns.visible('username')" prop="username" label="工号" />
-        <el-table-column v-if="columns.visible('basic')" prop="basic" label="基本工资" />
-        <el-table-column v-if="columns.visible('bonus')" prop="bonus" label="奖金" />
-        <el-table-column v-if="columns.visible('lunch')" prop="lunch" label="午餐补助" />
-        <el-table-column v-if="columns.visible('traffic')" prop="traffic" label="交通补助" />
-        <el-table-column v-if="columns.visible('pension')" prop="pension" label="养老金" />
-        <el-table-column v-if="columns.visible('createDate')" prop="createDate" label="启用时间">
+        <el-table-column v-if="columns.visible('jbbasic')" prop="jbbasic" label="基本工资" />
+        <el-table-column v-if="columns.visible('jjbonus')" prop="jjbonus" label="奖金" />
+        <el-table-column v-if="columns.visible('bzlunch')" prop="bzlunch" label="午餐补助" />
+        <el-table-column v-if="columns.visible('bztraffic')" prop="bztraffic" label="交通补助" />
+        <el-table-column v-if="columns.visible('ylpension')" prop="ylpension" label="养老金" />
+        <el-table-column v-if="columns.visible('qdcreateDate')" prop="qdcreateDate" label="启用时间">
           <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createDate) }}</span>
+            <span>{{ parseTime(scope.row.qdcreateDate) }}</span>
           </template>
         </el-table-column>
-        <el-table-column v-if="columns.visible('medical')" prop="medical" label="医疗保险" />
-        <el-table-column v-if="columns.visible('accumulation')" prop="accumulation" label="公积金" />
-        <el-table-column v-if="columns.visible('all')" prop="all" label="应发工资" />
+        <el-table-column v-if="columns.visible('ylmedical')" prop="ylmedical" label="医疗保险" />
+        <el-table-column v-if="columns.visible('gjjaccumulation')" prop="gjjaccumulation" label="公积金" />
+        <el-table-column v-if="columns.visible('yfall')" prop="yfall" label="应发工资" />
         <el-table-column v-if="columns.visible('name')" prop="name" label="姓名" />
         <el-table-column v-permission="['admin','salary:edit','salary:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
@@ -97,7 +97,7 @@ import pagination from '@crud/Pagination'
 
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: '薪酬', url: 'api/salary', sort: 'id,desc', crudMethod: { ...crudSalary }})
-const defaultForm = { id: null, username: null, basic: null, bonus: null, lunch: null, traffic: null, pension: null, createDate: null, medical: null, accumulation: null, all: null, name: null }
+const defaultForm = { id: null, username: null, jbbasic: null, jjbonus: null, bzlunch: null, bztraffic: null, ylpension: null, qscreateDate: null, ylmedical: null, gjjaccumulation: null, yfall: null, name: null }
 export default {
   name: 'Salary',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -116,14 +116,14 @@ export default {
       },
       queryTypeOptions: [
         { key: 'username', display_name: '工号' },
-        { key: 'basic', display_name: '基本工资' },
-        { key: 'bonus', display_name: '奖金' },
-        { key: 'lunch', display_name: '午餐补助' },
-        { key: 'traffic', display_name: '交通补助' },
-        { key: 'pension', display_name: '养老金' },
-        { key: 'medical', display_name: '医疗保险' },
-        { key: 'accumulation', display_name: '公积金' },
-        { key: 'all', display_name: '应发工资' },
+        { key: 'jbbasic', display_name: '基本工资' },
+        { key: 'jjbonus', display_name: '奖金' },
+        { key: 'bzlunch', display_name: '午餐补助' },
+        { key: 'bztraffic', display_name: '交通补助' },
+        { key: 'ylpension', display_name: '养老金' },
+        { key: 'ylmedical', display_name: '医疗保险' },
+        { key: 'gjjaccumulation', display_name: '公积金' },
+        { key: 'yfall', display_name: '应发工资' },
         { key: 'name', display_name: '姓名' }
       ]
     }
